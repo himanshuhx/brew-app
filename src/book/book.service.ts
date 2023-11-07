@@ -1,7 +1,14 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { BookRepository } from './book.repository';
 import { createBookDto } from './dto/create-book.dto';
 import { ReturnBookDto } from './dto/return-book.dto';
+import { updateBookDto } from './dto/update-book.dto';
 
 @Injectable()
 export class BookService {
@@ -51,6 +58,35 @@ export class BookService {
           error: `Failed to retrieve books with error: ${err.message}`,
         },
         HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
+  async updateBookById(
+    bookId,
+    updateBookRequestBody: updateBookDto,
+  ): Promise<ReturnBookDto> {
+    try {
+      this.logger.log('updating Book');
+      const bookDetails = await this.bookRepository.getBookById(bookId);
+      if (bookDetails) {
+        return await this.bookRepository.updateBookById(
+          bookId,
+          updateBookRequestBody,
+        );
+      } else {
+        throw new NotFoundException({
+          status: HttpStatus.NOT_FOUND,
+          message: `Failed to update book, no book found with id:${bookId}`,
+        });
+      }
+    } catch (err) {
+      throw new HttpException(
+        {
+          status: err.status,
+          error: err.message,
+        },
+        err.status,
       );
     }
   }

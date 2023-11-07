@@ -4,6 +4,7 @@ import { Book, BookDocument } from './schemas/book.schema';
 import { Model } from 'mongoose';
 import { ReturnBookDto } from './dto/return-book.dto';
 import { createBookDto } from './dto/create-book.dto';
+import { updateBookDto } from './dto/update-book.dto';
 
 @Injectable()
 export class BookRepository {
@@ -24,5 +25,14 @@ export class BookRepository {
 
   async getBookById(bookId: string): Promise<ReturnBookDto> {
     return await this.bookModel.findOne({ _id: bookId });
+  }
+
+  async updateBookById(
+    bookId,
+    updateBookRequestBody: updateBookDto,
+  ): Promise<ReturnBookDto> {
+    return await this.bookModel
+      .findOneAndUpdate({ _id: bookId }, updateBookRequestBody, { new: true })
+      .exec();
   }
 }
