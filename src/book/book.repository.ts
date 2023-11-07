@@ -17,4 +17,8 @@ export class BookRepository {
     const newBook = new this.bookModel(createBookDto);
     return await newBook.save();
   }
+
+  async getAllBooks(): Promise<ReturnBookDto[]> {
+    return await this.bookModel.find();
+  }
 }

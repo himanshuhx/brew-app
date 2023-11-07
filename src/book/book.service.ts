@@ -24,4 +24,19 @@ export class BookService {
       );
     }
   }
+
+  async getAllBooks(): Promise<ReturnBookDto[]> {
+    try {
+      this.logger.log('retrieving All Book Data');
+      return await this.bookRepository.getAllBooks();
+    } catch (err) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          error: `Failed to retrieve books with error: ${err.message}`,
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+  }
 }

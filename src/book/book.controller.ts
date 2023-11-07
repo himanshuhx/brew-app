@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Query } from '@nestjs/common';
 import { BookService } from './book.service';
 import { createBookDto } from './dto/create-book.dto';
 import { ReturnBookDto } from './dto/return-book.dto';
@@ -16,5 +16,11 @@ export class BookController {
   ): Promise<ReturnBookDto> {
     this.logger.log('creating books via post API');
     return this.bookService.createBook(createBookDto);
+  }
+
+  @Get()
+  async getAllBooks(): Promise<ReturnBookDto[]> {
+    this.logger.log('creating books via post API');
+    return this.bookService.getAllBooks();
   }
 }
