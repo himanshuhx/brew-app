@@ -35,4 +35,8 @@ export class BookRepository {
       .findOneAndUpdate({ _id: bookId }, updateBookRequestBody, { new: true })
       .exec();
   }
+
+  async deleteBookById(bookId: string): Promise<any> {
+    return await this.bookModel.deleteOne({ _id: bookId });
+  }
 }

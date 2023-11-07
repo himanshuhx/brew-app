@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -46,5 +47,11 @@ export class BookController {
   ): Promise<ReturnBookDto> {
     this.logger.log(`updating book with bookId: ${bookId} via Patch API`);
     return this.bookService.updateBookById(bookId, updateBookRequestBody);
+  }
+
+  @Delete('/:bookId')
+  async deleteBookById(@Param('bookId') bookId: string): Promise<any> {
+    this.logger.log(`deleting book with bookId: ${bookId} via Patch API`);
+    return this.bookService.deleteBookById(bookId);
   }
 }

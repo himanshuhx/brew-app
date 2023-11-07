@@ -98,4 +98,27 @@ export class BookService {
       );
     }
   }
+
+  async deleteBookById(bookId: string): Promise<any> {
+    try {
+      this.logger.log('deleting Book');
+      const bookDetails = await this.bookRepository.getBookById(bookId);
+      if (bookDetails) {
+        return await this.bookRepository.deleteBookById(bookId);
+      } else {
+        throw new NotFoundException({
+          status: HttpStatus.NOT_FOUND,
+          message: `Failed to delete book, no book found with id:${bookId}`,
+        });
+      }
+    } catch (err) {
+      throw new HttpException(
+        {
+          status: err.status,
+          error: err.message,
+        },
+        err.status,
+      );
+    }
+  }
 }

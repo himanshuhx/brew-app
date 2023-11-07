@@ -1,6 +1,9 @@
 import { IsNotEmpty, IsString } from '@nestjs/class-validator';
+import mongoose from 'mongoose';
 
 export class createBookDto {
+  public _id: mongoose.Types.ObjectId;
+
   @IsString()
   @IsNotEmpty()
   public title: string;
