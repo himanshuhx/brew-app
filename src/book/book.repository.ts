@@ -21,4 +21,8 @@ export class BookRepository {
   async getAllBooks(): Promise<ReturnBookDto[]> {
     return await this.bookModel.find();
   }
+
+  async getBookById(bookId: string): Promise<ReturnBookDto> {
+    return await this.bookModel.findOne({ _id: bookId });
+  }
 }

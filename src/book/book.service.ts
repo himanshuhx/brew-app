@@ -39,4 +39,19 @@ export class BookService {
       );
     }
   }
+
+  async getBookById(bookId: string): Promise<ReturnBookDto> {
+    try {
+      this.logger.log('retrieving Book');
+      return await this.bookRepository.getBookById(bookId);
+    } catch (err) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `Failed to retrieve books with error: ${err.message}`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
 }
