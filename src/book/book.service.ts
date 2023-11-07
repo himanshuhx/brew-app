@@ -50,14 +50,22 @@ export class BookService {
   async getBookById(bookId: string): Promise<ReturnBookDto> {
     try {
       this.logger.log('retrieving Book');
-      return await this.bookRepository.getBookById(bookId);
+      const bookDetails = await this.bookRepository.getBookById(bookId);
+      if (bookDetails) {
+        return bookDetails;
+      } else {
+        throw new NotFoundException({
+          status: HttpStatus.NOT_FOUND,
+          message: `Failed to retrieve book, no book found with id:${bookId}`,
+        });
+      }
     } catch (err) {
       throw new HttpException(
         {
-          status: HttpStatus.NOT_FOUND,
-          error: `Failed to retrieve books with error: ${err.message}`,
+          status: err.status,
+          error: err.message,
         },
-        HttpStatus.NOT_FOUND,
+        err.status,
       );
     }
   }
