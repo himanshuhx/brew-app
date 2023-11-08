@@ -82,28 +82,16 @@ request body example - NA
 ```
 
 ## Installation
-
-```bash
-$ npm install
+```
+Clone the repository in your local machine.
+run npm install
+You will need to provide MONGODB_URI in env.development file to connect with MongoDB instance.
+Please ping me for same.
 ```
 
 ## Running the app
 
-```bash
-# development
-$ npm run start
-
 ```
+npm run start
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
