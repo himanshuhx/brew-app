@@ -24,7 +24,12 @@
 
 ## Description
 
-This project provides a bunch of API's for book management
+Brew App provides a bunch of API's for book management.
+Project is live at - 
+```
+https://blushing-tick-bracelet.cyclic.app/
+```
+```
 Book Schema - 
 {
  _id: Mongoose Object Id,
@@ -32,8 +37,7 @@ Book Schema -
  author: string,
  summary: string
  }
-
- API -
+```
 
 ### 1. POST API
 This API will post new book to the db
